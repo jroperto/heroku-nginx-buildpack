@@ -10,6 +10,8 @@ NGINX_VERSION="1.8.0"
 BUILD_DIR=$1
 CACHE_DIR=$2
 
+echo "BUILD_DIR=  $BUILD_DIR"
+
 NGINX_PACKAGE="http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz"						
 
 # vendor directories
