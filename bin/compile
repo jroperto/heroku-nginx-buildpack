@@ -36,10 +36,13 @@ export HEROKU_APP_DIR=$BUILD_DIR
 mkdir -p logs
 touch logs/access.log logs/error.log
 (tail -qF -n 0 --pid=\$\$ logs/*.log &)
-exec bin/nginx -p .
+
+exec nginx -p .
 EOF
 chmod +x "$BUILD_DIR/bin/start_nginx"
+
 pwd
+ls -l
 
 if [[ ! -f $BUILD_DIR/Procfile ]]; then
   echo -n "-----> Creating Procfile... "
