@@ -29,7 +29,8 @@ cp -r "$VENDORED_NGINX/nginx-${NGINX_VERSION}" "$BUILD_DIR/bin/nginx"
 
 # build a startup script
 cat <<EOF >"$BUILD_DIR/bin/start_nginx"
-#!/usr/bin/env bash
+#!/usr/bin/env bash	
+pwd
 erb conf/nginx.conf.erb > conf/nginx.conf	
 export HEROKU_APP_DIR=$BUILD_DIR
 mkdir -p logs
@@ -38,3 +39,16 @@ touch logs/access.log logs/error.log
 exec bin/nginx -p .
 EOF
 chmod +x "$BUILD_DIR/bin/start_nginx"
+pwd
+
+if [[ ! -f $BUILD_DIR/Procfile ]]; then
+  echo -n "-----> Creating Procfile... "
+  echo "web: bin/start_nginx" > $BUILD_DIR/Procfile
+  chmod +x "$BUILD_DIR/Procfile"
+  echo "done"
+fi
+
+# Update the PATH
+info "Building runtime environment"
+mkdir -p $BUILD_DIR/.profile.d
+echo "export PATH=\"\$HOME/vendor/nginx/bin:\$PATH\";" > $BUILD_DIR/.profile.d/nginx.sh
