@@ -27,11 +27,22 @@ cp "$VENDORED_NGINX/sbin/nginx" "$BUILD_DIR/bin/nginx"
 # build a startup script
 cat <<EOF >"$BUILD_DIR/bin/start_nginx"
 #!/usr/bin/env bash
-erb conf/nginx.conf.erb > conf/nginx.conf	
-export HEROKU_APP_DIR=$BUILD_DIR
+
+set -e
+
+# Substitute API_URI env variable in nginx.conf
+/bin/sed -i "s/@API_URI@/${API_URI}/" /conf/nginx.conf
+
+UI_PORT="$UI_PORT"
+
+# Substitute UI_PORT env variable in nginx.conf
+/bin/sed -i "s/@UI_PORT@/${UI_PORT}/" /conf/nginx.conf
+
+exec "$@"
+
 mkdir -p logs
 touch logs/access.log logs/error.log
 (tail -qF -n 0 --pid=\$\$ logs/*.log &)
 exec bin/nginx -p .
 EOF
-chmod +x "$BUILD_DIR/bin/start_nginx"
+chmod +x "$BUILD_DIR/conf/start_nginx"
