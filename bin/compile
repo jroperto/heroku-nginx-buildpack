@@ -22,8 +22,6 @@ curl $NGINX_PACKAGE -s -o - | tar xzf - -C $VENDORED_NGINX
 
 # vendor nginx into the slug
 echo "-----> Vendoring nginx $NGINX_VERSION"
-cd $VENDORED_NGINX
-ls -l
 mkdir -p "$BUILD_DIR/bin"
 cp "$VENDORED_NGINX/nginx-${NGINX_VERSION}" "$BUILD_DIR/bin/nginx"
 
