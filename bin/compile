@@ -52,6 +52,6 @@ if [[ ! -f $BUILD_DIR/Procfile ]]; then
 fi
 
 # Update the PATH
-info "Building runtime environment"
+echo "Building runtime environment"
 mkdir -p $BUILD_DIR/.profile.d
 echo "export PATH=\"\$HOME/vendor/nginx/bin:\$PATH\";" > $BUILD_DIR/.profile.d/nginx.sh
