@@ -25,7 +25,7 @@ echo "-----> Vendoring nginx $NGINX_VERSION"
 cd $VENDORED_NGINX
 ls -l
 mkdir -p "$BUILD_DIR/bin"
-cp "$VENDORED_NGINX/sbin/nginx" "$BUILD_DIR/bin/nginx"
+cp "$VENDORED_NGINX/nginx-${NGINX_VERSION}" "$BUILD_DIR/bin/nginx"
 
 # build a startup script
 cat <<EOF >"$BUILD_DIR/bin/start_nginx"
