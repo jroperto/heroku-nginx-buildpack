@@ -13,7 +13,7 @@ CACHE_DIR=$2
 NGINX_PACKAGE="http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz"						
 
 # vendor directories
-VENDORED_NGINX=$(mktemp -d -t nginx.XXXXXX)
+VENDORED_NGINX="vendor"
 
 # download and upack packages
 echo "-----> Fetching nginx binaries"
